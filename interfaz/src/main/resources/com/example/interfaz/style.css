@@ -1,0 +1,26 @@
+.fondos{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 30pt;
+}
+
+.fondollegada{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-font-size: 20pt;
+}
+
+.boton1{
+    -fx-background-color: black;
+    -fx-font-family: Poppins;
+    -fx-text-fill: white;
+    -fx-font-size: 20pt;
+    -fx-background-radius: 20px;
+}
+.lineas{
+    -fx-border-color: #868686;
+}
+
+.fondo{
+    -fx-background-color: white;
+}
