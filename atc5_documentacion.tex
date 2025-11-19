@@ -1,0 +1,195 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{titling}
+\usepackage{hyperref}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{array}
+\usepackage{xcolor}
+\geometry{margin=2.5cm}
+
+\lstset{
+basicstyle=\ttfamily\small,
+numbers=left,
+frame=single,
+breaklines=true,
+commentstyle=\color{green},
+keywordstyle=\color{blue}\bfseries,
+stringstyle=\color{red},
+showstringspaces=false,
+language=Java
+}
+
+\title{Documentación: Carrera de Coches con Interfaz}
+\author{Andrea Sofía Pais Dos Santos}
+\date{\today}
+
+\begin{document}
+\setlength{\droptitle}{0.4\textheight}
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\vspace{5cm}
+Índice
+
+\begin{enumerate}
+\item Descripción del problema .......................................... página 3
+\item Requisitos funcionales ............................................... página 3
+\item Requisitos no funcionales .......................................... página 3
+\item Casos de uso ............................................................. página 3
+\item Historias de usuario .................................................. página 4
+\item Tecnologías Utilizadas .............................................. página 4
+\item Clases e Interfaz ....................................................... página 4
+\end{enumerate}
+\newpage
+
+\section{Descripción del problema}
+Tenemos que crear una aplicación que simula una carrera de coches, que necesita gestionar varios coches compitiendo al mismo tiempo en una pista. Para ello, creamos un programa que gestione el movimiento de los coches y muestre visualmente su progreso en la carrera. La aplicación tiene que ser capaz de:
+\begin{enumerate}
+\item Poder crear los nombres de los coches que participan.
+\item Simular el movimiento aleatorio de cada coche con diferentes velocidades máximas.
+\item Mostrar visualmente la posición de cada coche en la pista en tiempo real.
+\item Gestionar la llegada a la meta y determinar el orden de llegada.
+\item Reiniciar la carrera para nuevas pruebas.
+\end{enumerate}
+
+\section{Requisitos funcionales}
+Los requisitos funcionales que va a tener el sistema son:
+
+RF01: Cada coche debe avanzar de forma aleatoria dentro de su velocidad máxima.
+
+RF02: Los coches deben mostrar su posición actual en la pista visualmente.
+
+RF03: El sistema debe clasificar correctamente el orden de llegada a la meta.
+
+RF04: La aplicación debe permitir reiniciar la carrera.
+
+RF05: Mostrar el puesto de llegada de cada coche al llegar a la meta.
+
+\section{Requisitos no funcionales}
+Los requisitos no funcionales que va a tener el sistema son:
+
+RNF01: Interfaz intuitiva y visualmente atractiva.
+
+RNF02: Tiempo de respuesta rápido en la actualización de posiciones.
+
+RNF03: Los hilos deben finalizar correctamente al terminar la carrera.
+
+\section{Casos de uso}
+Descripción de casos de uso principales de la aplicación:
+
+\begin{tabular}{|l|p{10cm}|}
+\hline
+    Caso de Uso & Descripción \\ \hline
+    Iniciar Carrera & El usuario inicia la simulación y los coches comienzan a moverse por la pista de forma concurrente.\\ \hline
+    Visualizar Progreso & El sistema muestra en tiempo real la posición de cada coche en la pista mediante una representación visual.\\ \hline
+    Finalizar Carrera & Cuando un coche alcanza los 800 metros, el sistema registra la llegada y muestra la posición final.\\ \hline
+    Reiniciar Simulación & El usuario puede limpiar la pista y comenzar una nueva carrera con los mismos coches.\\ \hline
+\end{tabular}
+
+\section{Historias de usuario}
+\begin{tabular}{|l|p{2.5cm}|p{5cm}|p{5cm}|}
+    \hline
+    Identificación & Nombre & Tarea & Objetivo\\ \hline
+    HU2 & Visualización Carrera & El usuario quiere ver el progreso de los coches en tiempo real en una pista visual y reiniciar la carrera. & Seguir el desarrollo de la carrera y ver las posiciones de los coches.\\ \hline
+    
+\end{tabular}
+
+\vspace{1cm}
+
+\section{Tecnologías Utilizadas}
+
+\begin{tabular}{l|p{8cm}|c}
+    Java & Lenguaje de programación principal para la lógica de la aplicación & \includegraphics[height=2cm]{images/Java_Logo.png} \\
+    JavaFX & Framework para crear la interfaz gráfica de usuario & \includegraphics[height=2cm]{images/JavaFX_Logo.png}\\ 
+    IntelliJ & IDE utilizado para el desarrollo del proyecto & \includegraphics[height=2cm]{images/logoIntellij.png} \\ 
+\end{tabular}
+
+\vspace{3cm}
+\section{Clases e Interfaces}
+Explicación detallada de cada clase y los componentes de la interfaz gráfica desarrollados para la aplicación de carreras de coches.
+
+\subsection{Interfaz gráfica con JavaFX}
+
+\subsubsection{HelloController}
+\begin{itemize}
+\item Declaración de variables:
+\begin{enumerate}
+\item Campos de texto para nombres (nombreCoche1...nombreCoche5) - Para ingresar o mostrar los nombres de los coches que participan en la carrera.
+\item Lista nombreCoches - ArrayList que contiene todos los campos de texto de nombres.
+\item Campos de texto para pistas (pista01...pista48) - Representan las posiciones en la pista para cada coche.
+\item Lista pistaCoches - ArrayList que contiene arrays de TextField representando cada fila de la pista.
+\item Lista coches - ArrayList que contiene los objetos Coche que se crean.
+\end{enumerate}
+\item Función initialize():
+\begin{enumerate}
+\item Inicializa la lista de nombres de coches y deshabilita la edición de los TextView que no me interesa.
+\item Asigna nombres por defecto ("Coche 1", "Coche 2", etc.).
+\item Llama a crearPista() para organizar los campos de la pista en filas para cada coche.
+\end{enumerate}
+\item Función crearPista():
+\begin{enumerate}
+\item Organiza los campos de texto en 5 filas (una por coche) con 8 posiciones cada una.
+\item Cada posición representa 100 metros (meta total: 800 metros).
+\end{enumerate}
+\item Función iniciar():
+\begin{enumerate}
+\item Reinicia la carrera y limpia las pistas.
+\item Crea nuevos objetos Coche con nombres y velocidades específicas.
+\item Inicia los hilos de cada coche con start().
+\end{enumerate}
+\item Función posicionCoche(): Actualiza visualmente la posición de cada coche en la pista.
+\item Función ordenLlegada(): Es la función que al llamarla nos enseña la posición de los coches (1º Puesto, 2º Puesto, etc.).
+\end{itemize}
+
+Imágenes de la carrera y del final de la carrera.
+\begin{center}
+    \includegraphics[height=8cm]{images/carrera1.png}
+
+    \includegraphics[height=8cm]{images/carrera2.png}
+\end{center}
+\subsection{Clases en Java}
+
+\subsubsection{Clase Coche}
+\begin{itemize}
+\item Atributos:
+\begin{enumerate}
+\item nombre - Identificador del coche.
+\item distanciaRecorrida - seguimiento del progreso del coche en metros.
+\item velocidadMaxima - límite máximo del coche.
+\item meta - distancia total de la carrera (800 metros).
+\item fila - índice que identifica la fila/pista del coche.
+\item llegada - controla el orden de llegada.
+\item controller - referencia al controlador para actualizar la interfaz.
+\item posicionllegada - posición final en la carrera.
+\end{enumerate}
+\item Constructor: Inicializa todos los atributos del coche.
+\item Función reiniciarCarrera(): Método para resetear el contador de llegadas.
+\item Función run():
+\begin{enumerate}
+\item Bucle principal mientras no se alcance la meta.
+\item Actualiza distancia recorrida y posición visual.
+\item Controla la llegada a meta con sincronización para determinar orden.
+\item Tiene ausas aleatorias para simular tiempo real.
+\end{enumerate}
+\item La clase utiliza Platform.runLater() para actualizaciones de la interfaz.
+\end{itemize}
+
+\subsubsection{Hello View (XML)}
+Estructura de la interfaz gráfica en FXML:
+\begin{itemize}
+\item AnchorPane como contenedor principal.
+\item Campos de texto para nombres de coches (5 campos).
+\item TextViews para representar la pista (5 filas × 8 columnas).
+\item Botón para iniciar/reiniciar la carrera.
+\item Organización visual clara que muestra coches como emojis de un coche y posiciones finales con texto.
+\item Vinculación de todos los elementos con sus respectivos IDs en el controlador.
+\end{itemize}
+
+
+\end{document}
